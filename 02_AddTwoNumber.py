@@ -1,25 +1,33 @@
 class ListNode:
-  def __init__(self, x):
-    self.val = x
-    self.next = None
-
-
+    def __init__(self, x=None):
+        self.val = x
+        self.next = None
 def addTwoNumbers(l1, l2):
+    CarryToNext = 0
+    Result = ListNode(-1)
+    l1node = l1
+    l2node = l2
+    CurrentNode = Result
+    while True:
+        sum = (l1node.val + l2node.val + CarryToNext) % 10
+        CarryToNext = (l1node.val + l2node.val + CarryToNext)//10
+        CurrentNode.next=ListNode(sum)
+        CurrentNode = CurrentNode.next
+        if l1node.next == None and l2node.next == None:
+            if CarryToNext != 0:
+                CurrentNode.next=ListNode(CarryToNext)
+            break
+        l1node = l1node.next if l1node.next != None else ListNode(0)
+        l2node = l2node.next if l2node.next != None else ListNode(0)
+    return Result.next
 
 
 
 if __name__ == "__main__":
-    l1 = ListNode(0)
-    l1.next = ListNode(1)
-    l1.next = ListNode(3)
-
-    l2 = ListNode(4)
-    l2.next = ListNode(5)
-    l2.next = ListNode(3)
-
-    tar  = 6
-    a , b = addTwoNumbers(nums, tar)
+    l1 = ListNode(5)
+    l2 = ListNode(5)
+    a = addTwoNumbers(l1, l2)
     print(a)
-    print(b)
+
 
 
