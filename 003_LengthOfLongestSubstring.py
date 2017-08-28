@@ -4,23 +4,20 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        startIdx = 0
-        usedChars = []
-        targetStr = ""
-        for j in range(0, len(s)):
-            del usedChars[:]
-            curStr = ""
-            for i in range(j,len(s)):
-                nextChar = s[i]
-                if nextChar not in usedChars:
-                    usedChars.append(nextChar)
-                    curStr+= nextChar
-                else:
-                    startIdx += i-1
-                    break
-                if len(curStr) > len(targetStr):
-                    targetStr = curStr
-        return len(targetStr)
+        n = len(s)
+        set = []
+        ans = 0
+        i= 0
+        j = 0
+        while i<n and j<n:
+            if s[j] not in set:
+                set.append(s[j])
+                j+=1
+                ans = j-i if j-i > ans else ans
+            else:
+                set.remove(s[i])
+                i+=1
+        return ans
 
 if __name__ == "__main__":
     solution = Solution
